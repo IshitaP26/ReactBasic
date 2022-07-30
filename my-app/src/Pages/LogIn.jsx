@@ -5,8 +5,10 @@ import SignUp from './SignUp'
 
 
 const LogIn=()=> {
-   const [user,setUser] = useState({
-        email: "", password: "", usertype: "", agid: "", bid: ""
+    const [email,setEmail] = useState('');
+    const [password, setPassword] = useState(''); 
+    const [user,setUser] = useState({
+        email:"", password:""
     });
 
     let name,value;
@@ -16,24 +18,23 @@ const LogIn=()=> {
         name = event.target.name;
         value = event.target.value;
 
-        setUser({...user,[name]:value})
+        setUser({...user,[name]:value});
     }
 
     const PostData=async(event)=>{
         event.preventDefault();
 
-        const {email, password, usertype, agid,bid} = user;
+        const {email, password} = user;
 
-        const res = await fetch("/register", {
+        const res = await fetch("/signin", {
             method: "POST",
             headers: {"Content-Type" : "application/json"
         },
         body:JSON.stringify({
-            email, password, usertype, agid,bid 
+            email, password 
             })
         });
-
-        //const res = await res.json();
+        res = await res.json();
 
     }
 
@@ -45,41 +46,21 @@ const LogIn=()=> {
                 <label for="mail" className="form-label">Email</label>
                 <input type="email" className="email" id="email" name="email"
                     value ={user.email}
-                    onChange={handleInputs}
+                    onChange={(e) => setUser({...user,email:e.target.value})}
+                    placeholder="Your Email"
                 />
             </div>
             <div className="Password1">
-                <label for="inputPassword4" className="form-label">Password</label>
-                <input type="password" className="password" id="inputPassword4" name="password"
-                    value ={user.password}
-                    onChange={handleInputs}
-                    />
-            </div>
-            <div className="CheckBoxLabel">
-                Enter whether you are an aggregator or business owner
-            </div>
-            <div className="usertype">
-                <input type="text" className="usertype" id="usertype" name="usertype"
-                  value ={user.usertype}
-                  onChange={handleInputs}
-                  />
-            </div>
-            <div className="bid">
-                <label for="id" className="form-label">If you are a business owner, enter your business id:</label>
-                <input type="text" className="bid" id="businessid" name="bid"
-                  value ={user.bid}
-                  onChange={handleInputs}
-                  />
-            </div>
-            <div className="agid">
-                <label for="id" className="form-label">If you are an aggregator, enter your authentication id:</label>
-                <input type="text" className="agid" id="aggregatorid" name="agid"
-                  value ={user.agid}
-                    onChange={handleInputs}
+                <label for="password" className="form-label">Password</label>
+                <input type="password" className="password" id="password" name="password"
+                        value ={user.password}
+                        onChange={(e) => setUser({...user,password:e.target.value})}
+                        placeholder="Your Password"
                     />
             </div>
             <div className="Button">
-                <button type="submit" className="btn btn-primary" onClick={PostData}>Log In</button>
+                <button type="submit" className="btn btn-primary" onClick={PostData} 
+                >Log In</button>
             </div>
 
             <div className="haveAccount">

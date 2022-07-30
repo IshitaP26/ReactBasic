@@ -3,6 +3,7 @@ import './App.css';
 import SignUp from './Pages/SignUp';
 import LogIn from './Pages/LogIn';
 import AddDetails from './Pages/AddDetails';
+import Comply from './Pages/Comply';
 import {
   BrowserRouter,
   Routes,
@@ -13,17 +14,9 @@ import {
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-      <Routes>
-            
-            <Route path="/LogIn" element={<LogIn/>}/>
-            
-         
-            <Route path="/SignUp" element={<SignUp/>}/>
-            
-       
-      </Routes>
-      </BrowserRouter>
+      
+      <LogIn/>
+      
     </div> 
   );
 }
